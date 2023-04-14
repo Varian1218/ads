@@ -9,12 +9,14 @@ namespace Ads.Tasks
         private readonly Awaiter _showedAwaiter = new();
         private ITask _hidden;
         private ITask<string> _loaded;
-        private ITask<string> _showed;
+        private ITask _showed;
         private IFullScreenAd _fullScreenAd;
 
         public TaskFullScreenAd()
         {
             _hidden = new AwaiterTask(_hiddenAwaiter);
+            _loaded = new AwaiterTask<string>(_loadedAwaiter);
+            _showed = new AwaiterTask(_showedAwaiter);
         }
 
         public IFullScreenAd FullScreenAd
@@ -27,8 +29,8 @@ namespace Ads.Tasks
                 value.Events.Showed = OnShow;
             }
         }
+
         public ITask Hidden => _hidden;
-        public ITask<string> Showed => _showed;
 
         private void Clear()
         {
@@ -63,11 +65,12 @@ namespace Ads.Tasks
             _showedAwaiter.Complete();
         }
 
-        public void Show()
+        public ITask ShowAsync()
         {
             _hiddenAwaiter.Clear();
             _showedAwaiter.Clear();
             _fullScreenAd.Show();
+            return _showed;
         }
     }
 }
