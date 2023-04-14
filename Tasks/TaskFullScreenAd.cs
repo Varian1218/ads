@@ -19,6 +19,8 @@ namespace Ads.Tasks
             _showed = new AwaiterTask(_showedAwaiter);
         }
 
+        public bool Earned => _fullScreenAd.IsEarned();
+
         public IFullScreenAd FullScreenAd
         {
             set
