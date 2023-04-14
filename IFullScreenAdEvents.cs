@@ -5,7 +5,7 @@ namespace Ads
     public interface IFullScreenAdEvents
     {
         Action Hidden { set; }
-        Action<int> Loaded { set; }
+        Action<string> Loaded { set; }
         Action Showed { set; }
     }
 }

@@ -1,5 +1,3 @@
-using System;
-
 namespace Ads
 {
     public interface IFullScreenAd
